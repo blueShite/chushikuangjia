@@ -139,7 +139,6 @@
         LHYNavigationController *nav = [[LHYNavigationController alloc] initWithRootViewController:vc];
         [self addChildViewController:nav];
     }
-    
 }
 
 - (void)changeTabbarWithCut:(NSInteger)cut {
@@ -157,7 +156,6 @@
             itemView.itemBtn.selected = NO;
         }
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {
