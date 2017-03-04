@@ -49,9 +49,9 @@
     lineView.backgroundColor = RGBACOLOR(212, 212, 212, 1);
     [tabBarView addSubview:lineView];
     [self.view addSubview:tabBarView];
-    for (int i=0; i<4; i++) {
+    for (int i=0; i<self.viewControllClassArray.count; i++) {
         
-        float width = UIScreenWidth/4;
+        float width = UIScreenWidth/self.viewControllClassArray.count;
         BarItemView*barItemView = [[BarItemView alloc] initWithFrame:CGRectMake(i*width,0, width, 50)];
         barItemView.tag = i;
         barItemView.itemBtn.tag = i;

@@ -10,6 +10,7 @@
 #import "HDPicModle.h"
 #import "UIImage+HDExtension.h"
 #import "AFNetworking.h"
+#import "AppDelegate.h"
 
 @implementation HDNetworking
 HDSingletonM(HDNetworking) // 单例实现
@@ -57,6 +58,21 @@ HDSingletonM(HDNetworking) // 单例实现
 }
 
 /**
+ 根据在AppDelegate获取到的网络状态返回当前网络状态
+
+ @return 网络状态
+ */
+- (BOOL)judgeNetWorkStatus {
+    AppDelegate * delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(delegate.isNetwork==NO){
+        
+        [SVProgressHUD showErrorWithStatus:@"您的手机现在没有网络,请检查网络设置!"];
+        return NO;
+    }
+    return YES;
+}
+
+/**
  *  封装的get请求
  *
  *  @param URLString  请求的链接
@@ -66,6 +82,9 @@ HDSingletonM(HDNetworking) // 单例实现
  */
 - (void)GET:(NSString *)URLString parameters:(NSDictionary *)parameters success:(Success)success failure:(Failure)failure
 {
+    if(![self judgeNetWorkStatus]){
+        return ;
+    }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     NSMutableSet *contentTypes = [[NSMutableSet alloc] initWithSet:manager.responseSerializer.acceptableContentTypes];
@@ -109,6 +128,9 @@ HDSingletonM(HDNetworking) // 单例实现
  */
 - (void)POST:(NSString *)URLString parameters:(NSDictionary *)parameters success:(Success)success failure:(Failure)failure
 {
+    if(![self judgeNetWorkStatus]){
+        return ;
+    }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     NSMutableSet *contentTypes = [[NSMutableSet alloc] initWithSet:manager.responseSerializer.acceptableContentTypes];
